@@ -1,1013 +1,357 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHROMA X | 4D Fitness Experience</title>
+<title>Demo</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&display=swap');
-
-:root {
-  --bg: #080c13;
-  --panel: #101925;
-  --blue: #38bfff;
-  --white: #f2f7ff;
-  --muted: #92a4ba;
-  --line: #263648;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--white);
-  font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
-}
-
-a { color: inherit; text-decoration: none; }
-button, input { font: inherit; }
-
-.container { width: min(1160px, 90%); margin: auto; }
-
-nav {
-  height: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--line);
-  position: relative;
-  z-index: 20;
-}
-
-.logo {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
-
-.logo span { color: var(--blue); }
-
-.nav-links { display: flex; gap: 28px; align-items: center; }
-
-.nav-links a {
-  color: #b4c2d2;
-  font-size: 12px;
-  transition: color .2s;
-}
-
-.nav-links a:hover { color: var(--blue); }
-
-.button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 21px;
-  background: var(--blue);
-  color: #06101a;
-  border: 1px solid var(--blue);
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.button:hover {
-  background: transparent;
-  color: var(--blue);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px #38bfff20;
-}
-
-.button-outline {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 20px;
-  border: 1px solid #53657a;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.menu-toggle {
-  display: none;
-  background: transparent;
-  border: 1px solid var(--line);
-  color: white;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.hero {
-  min-height: 680px;
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap: 25px;
-  align-items: center;
-  position: relative;
-}
-
-.hero:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 35%, #38bfff08);
-  pointer-events: none;
-}
-
-.kicker {
-  color: var(--blue);
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(42px, 6vw, 76px);
-  font-weight: 900;
-  letter-spacing: -4px;
-  line-height: 1.07;
-}
-
-.hero h1 .metal {
-  background: linear-gradient(110deg, #fff 5%, #8c9eaf 30%, #fff 48%, #38bfff 75%, #b4e9ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero-copy > p {
-  max-width: 450px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.9;
-  margin: 25px 0 30px;
-}
-
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.hero-meta {
-  display: flex;
-  gap: 30px;
-  margin-top: 45px;
-  flex-wrap: wrap;
-}
-
-.meta strong {
-  display: block;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 24px;
-}
-
-.meta small {
-  display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.hero-visual {
-  min-height: 490px;
-  display: grid;
-  place-items: center;
-  perspective: 1000px;
-  position: relative;
-}
-
-.scene {
-  width: min(390px, 80vw);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: hover 6s ease-in-out infinite;
-}
-
-.scene-glow {
-  position: absolute;
-  width: 85%;
-  height: 85%;
-  border-radius: 50%;
-  background: #38bfff14;
-  filter: blur(38px);
-}
-
-.orbit {
-  position: absolute;
-  inset: 5%;
-  border: 1px solid #38bfff;
-  border-radius: 50%;
-  box-shadow: 0 0 25px #38bfff18, inset 0 0 25px #38bfff0b;
-}
-
-.orbit.a { transform: rotateX(70deg) rotateZ(25deg); animation: orbitA 12s linear infinite; }
-.orbit.b { inset: 15% -5%; transform: rotateY(65deg); border-color: #b1c5d8; animation: orbitB 10s linear infinite; }
-.orbit.c { inset: 20% 4%; transform: rotateX(55deg) rotateY(35deg); border-color: #1377b5; animation: orbitC 14s linear infinite; }
-
-.cube-wrap {
-  width: 145px;
-  height: 145px;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: cubeSpin 12s linear infinite;
-}
-
-.face {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  border: 2px solid #8cddff;
-  background: linear-gradient(135deg, #38bfff45, #0a1930aa);
-  box-shadow: inset 0 0 30px #38bfff20;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 34px;
-  font-weight: 900;
-  color: white;
-  text-shadow: 0 0 18px var(--blue);
-  backface-visibility: visible;
-}
-
-.front { transform: translateZ(72px); }
-.back { transform: rotateY(180deg) translateZ(72px); }
-.right { transform: rotateY(90deg) translateZ(72px); }
-.left { transform: rotateY(-90deg) translateZ(72px); }
-.top { transform: rotateX(90deg) translateZ(72px); }
-.bottom { transform: rotateX(-90deg) translateZ(72px); }
-
-.visual-label {
-  position: absolute;
-  color: var(--blue);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-}
-
-.visual-label.top { top: 8%; right: -4%; }
-.visual-label.bottom { bottom: 8%; left: -3%; color: #d7e5f1; }
-
-.scroll-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #6e8195;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-.scroll-line:before { content: ""; width: 45px; height: 1px; background: var(--blue); }
-
-section { padding: 95px 0; }
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 25px;
-  margin-bottom: 40px;
-}
-
-.section-head h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.2;
-  letter-spacing: -1.5px;
-}
-
-.section-head h2 span { color: var(--blue); }
-
-.section-head > p {
-  max-width: 365px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.program-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
-}
-
-.program-card {
-  min-height: 275px;
-  padding: 28px;
-  background: linear-gradient(145deg, #142131, #0c111a 65%);
-  border: 1px solid var(--line);
-  transition: .3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.program-card:after {
-  content: "";
-  position: absolute;
-  width: 170px;
-  height: 170px;
-  right: -90px;
-  top: -90px;
-  border: 1px solid #38bfff30;
-  transform: rotate(45deg);
-  transition: .4s;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0f1020;
+  color:white;
 }
 
-.program-card:hover {
-  transform: translateY(-7px);
-  border-color: var(--blue);
+.container{
+  display:flex;
+  flex-direction:row-reverse;
+  min-height:100vh;
 }
 
-.program-card:hover:after { transform: rotate(90deg) scale(1.3); }
-
-.card-number {
-  color: #68849c;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
-}
-
-.card-icon {
-  margin: 30px 0 18px;
-  font-size: 30px;
-  color: var(--blue);
-}
-
-.program-card h3 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 17px;
-  margin-bottom: 12px;
-}
-
-.program-card p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.program-card a {
-  display: inline-block;
-  margin-top: 22px;
-  color: var(--blue);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.lab {
-  background: #0e141d;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.lab-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 65px;
-}
-
-.lab-graphic {
-  min-height: 410px;
-  border: 1px solid #314254;
-  background:
-    linear-gradient(#38bfff09 1px, transparent 1px),
-    linear-gradient(90deg, #38bfff09 1px, transparent 1px),
-    radial-gradient(circle at center, #38bfff12, transparent 60%);
-  background-size: 28px 28px, 28px 28px, auto;
-  display: grid;
-  place-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.target {
-  width: 250px;
-  height: 250px;
-  border: 1px solid var(--blue);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 0 50px #38bfff14;
-  position: relative;
-}
-
-.target:before, .target:after {
-  content: "";
-  position: absolute;
-  border: 1px solid #38bfff88;
-  border-radius: 50%;
-}
-
-.target:before { inset: 25px; }
-.target:after { inset: 55px; border-style: dashed; animation: orbitA 18s linear infinite; }
-
-.target-core {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, white, var(--blue));
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  box-shadow: 0 0 40px #38bfff55;
-  animation: diamond 4s ease-in-out infinite;
-}
-
-.lab-tag {
-  position: absolute;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--blue);
-}
-
-.lab-tag.t1 { top: 25px; left: 25px; }
-.lab-tag.t2 { right: 25px; bottom: 25px; }
-
-.lab-copy h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(29px, 4vw, 43px);
-  line-height: 1.25;
-  margin-bottom: 20px;
-}
-
-.lab-copy h2 span { color: var(--blue); }
-
-.lab-copy > p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-  margin-bottom: 28px;
-}
-
-.lab-feature {
-  display: flex;
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.feature-mark {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #38bfff50;
-  color: var(--blue);
-  display: grid;
-  place-items: center;
-}
-
-.lab-feature h4 { font-size: 13px; margin-bottom: 5px; }
-.lab-feature p { font-size: 11px; color: var(--muted); line-height: 1.7; }
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
-}
-
-.price-card {
-  padding: 30px 27px;
-  border: 1px solid var(--line);
-  background: #101925;
+.demo{
+  width:70%;
+  background:#111;
+  position:relative;
 }
 
-.price-card.featured {
-  border-color: var(--blue);
-  background: linear-gradient(150deg, #38bfff16, #101925 60%);
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
 }
 
-.plan-name {
-  color: var(--blue);
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 700;
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#181a35,#0b0c18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-y:auto;
 }
 
-.price-card h3 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  margin: 18px 0;
+.box{
+  width:100%;
+  background:rgba(10,10,10,.88);
+  border:1px solid #FF8C2B;
+  border-radius:22px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(255,140,43,.28);
 }
 
-.price {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
+.badge{
+  display:inline-block;
+  background:#FF8C2B;
+  color:#fff;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:800;
+  margin-bottom:16px;
 }
 
-.price small {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: 400;
+h1{
+  font-size:34px;
+  color:#FF8C2B;
+  margin-bottom:10px;
+  text-transform:uppercase;
 }
 
-.price-card > p {
-  font-size: 12px;
-  color: var(--muted);
-  margin: 12px 0 24px;
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#eee;
+}
+
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
+}
+
+.feature{
+  background:linear-gradient(90deg,#1b1b1b,#2b2208);
+  border:1px solid rgba(255,170,70,.55);
+  padding:14px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
 }
 
-.price-card ul { list-style: none; margin-bottom: 25px; }
-
-.price-card li {
-  border-bottom: 1px solid #263648;
-  padding: 12px 0;
-  font-size: 12px;
-  color: #c1cfdd;
-}
-
-.price-card li:before {
-  content: "✓";
-  color: var(--blue);
-  margin-right: 10px;
-}
-
-.price-card .button { width: 100%; }
-
-.bmi-section { padding-top: 30px; }
-
-.bmi-panel {
-  display: grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap: 45px;
-  align-items: center;
-  border: 1px solid var(--line);
-  background: linear-gradient(120deg, #101925, #0a111a);
-  padding: clamp(25px, 5vw, 55px);
-}
-
-.bmi-panel h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.25;
-  margin-bottom: 18px;
-}
-
-.bmi-panel h2 span { color: var(--blue); }
-
-.bmi-panel > div:first-child p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.9;
-}
-
-.bmi-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.field label {
-  display: block;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.field input {
-  width: 100%;
-  padding: 14px;
-  color: white;
-  background: #080d14;
-  border: 1px solid #35485c;
-  outline: none;
-}
-
-.field input:focus { border-color: var(--blue); }
-
-.bmi-form button { grid-column: 1 / -1; }
-
-#bmiResult {
-  grid-column: 1 / -1;
-  display: none;
-  border-left: 3px solid var(--blue);
-  background: #38bfff0c;
-  padding: 15px;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #d8f3ff;
-}
-
-.cta {
-  padding: 95px 20px;
-  text-align: center;
-  background: radial-gradient(ellipse at center, #38bfff14, transparent 65%);
-}
-
-.cta .kicker { margin-bottom: 20px; }
-
-.cta h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(30px, 5vw, 57px);
-  line-height: 1.2;
-  margin-bottom: 22px;
-}
-
-.cta h2 span { color: var(--blue); }
-
-.cta p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 28px;
-}
-
-footer {
-  padding: 27px 0;
-  border-top: 1px solid var(--line);
-}
-
-.footer-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-footer p, footer a { color: var(--muted); font-size: 11px; }
-.footer-links { display: flex; gap: 18px; }
-
-@keyframes hover {
-  0%, 100% { transform: translateY(0) rotateY(-4deg); }
-  50% { transform: translateY(-12px) rotateY(4deg); }
-}
-@keyframes cubeSpin {
-  from { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); }
-  to { transform: rotateX(340deg) rotateY(360deg) rotateZ(180deg); }
-}
-@keyframes orbitA { to { transform: rotateX(70deg) rotateZ(385deg); } }
-@keyframes orbitB { to { transform: rotateY(65deg) rotateZ(360deg); } }
-@keyframes orbitC { to { transform: rotateX(55deg) rotateY(35deg) rotateZ(360deg); } }
-@keyframes diamond {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(45deg) scale(.85); }
+.feature span{
+  color:#FF8C2B;
 }
 
-@media (max-width: 850px) {
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 81px;
-    left: 0;
-    right: 0;
-    padding: 24px 5%;
-    background: #0d141e;
-    border-bottom: 1px solid var(--line);
-    flex-direction: column;
-    align-items: flex-start;
+/* Signup Button */
+.signup-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:9px 16px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid #1ebe5d;
+  transition:.3s;
+}
+
+.signup-btn:hover{
+  background:#1ebe5d;
+  transform:scale(1.03);
+}
+
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.website-row a{
+  text-decoration:none;
+}
+
+.website{
+  color:#25D366;
+}
+
+.whatsapp-small{
+  color:#FF8C2B;
+}
+
+.cta{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  box-shadow:0 8px 18px rgba(37,211,102,.35);
+  transition:.3s;
+}
+
+.cta:hover{
+  transform:scale(1.03);
+  background:#1ebe5d;
+}
+
+/* Floating Signup Button */
+.floating-signup{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  background:#FF8C2B;
+  color:#fff;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:900;
+  border:3px solid #fff;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,140,43,0.6);
+  transition:.3s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.floating-signup:hover{
+  transform:translateX(-50%) scale(1.08);
+  background:#E66A1A;
+  box-shadow:0 12px 25px rgba(255,140,43,0.8);
+}
+
+.trust{
+  margin-top:16px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
+}
+
+@media(max-width:768px){
+  .container{
+    flex-direction:column-reverse;
   }
 
-  .nav-links.open { display: flex; }
-  .menu-toggle { display: block; }
-
-  nav > .button { display: none; }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding-top: 65px;
-    gap: 0;
+  .demo,
+  .right{
+    width:100%;
   }
 
-  .hero-visual { min-height: 420px; }
-  .scroll-line { display: none; }
-  .section-head { flex-direction: column; align-items: flex-start; }
-  .program-grid, .pricing-grid { grid-template-columns: 1fr; }
-  .lab-grid, .bmi-panel { grid-template-columns: 1fr; gap: 35px; }
-  .lab-graphic { min-height: 340px; }
+  iframe{
+    height:500px;
+  }
+
+  .right{
+    padding:20px;
+  }
 }
 
-@media (max-width: 480px) {
-  .hero h1 { letter-spacing: -2px; }
-  .hero-meta { gap: 20px; }
-  .meta strong { font-size: 20px; }
-  .bmi-form { grid-template-columns: 1fr; }
-  .bmi-form button, #bmiResult { grid-column: 1; }
-  .footer-row { align-items: flex-start; flex-direction: column; }
+@media(max-width:480px){
+  h1{
+    font-size:28px;
+  }
+
+  .sub{
+    font-size:16px;
+  }
+
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
+
+  .signup-btn{
+    font-size:14px;
+    padding:8px 13px;
+  }
+
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
+
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
 }
 </style>
+
 </head>
 
 <body>
 
-<header class="container">
-  <nav>
-    <a href="#home" class="logo">CHROMA <span>X.</span></a>
+<div class="container">
 
-    <div class="nav-links" id="navLinks">
-      <a href="#programs">Training</a>
-      <a href="#lab">Experience</a>
-      <a href="#plans">Membership</a>
-      <a href="#bmi">BMI Tool</a>
-    </div>
-
-    <a class="button" href="#plans">Get Access ↗</a>
-    <button class="menu-toggle" id="menuToggle"
-      aria-label="Toggle navigation" aria-expanded="false">☰</button>
-  </nav>
-</header>
-
-<main>
-  <section class="container hero" id="home">
-    <div class="hero-copy">
-      <div class="kicker">/// Fitness beyond dimensions</div>
-
-      <h1>ENTER THE<br><span class="metal">NEXT</span><br>DIMENSION.</h1>
-
-      <p>
-        Welcome to a new era of training. Experience precision performance,
-        next-generation equipment, and a community built to move you forward.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#plans" class="button">Begin Your Journey ↗</a>
-        <a href="#programs" class="button-outline">Explore Training</a>
-      </div>
-
-      <div class="hero-meta">
-        <div class="meta"><strong>24/7</strong><small>Access options</small></div>
-        <div class="meta"><strong>360°</strong><small>Training approach</small></div>
-        <div class="meta"><strong>01</strong><small>Your next level</small></div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="scene">
-        <div class="scene-glow"></div>
-        <div class="orbit a"></div>
-        <div class="orbit b"></div>
-        <div class="orbit c"></div>
-
-        <div class="cube-wrap" aria-label="Animated 3D cube">
-          <div class="face front">CX</div>
-          <div class="face back">4D</div>
-          <div class="face right">X</div>
-          <div class="face left">GO</div>
-          <div class="face top">∞</div>
-          <div class="face bottom">UP</div>
-        </div>
-
-        <div class="visual-label top">CHROMA SYSTEM / 001</div>
-        <div class="visual-label bottom">STRENGTH IN MOTION</div>
-      </div>
-    </div>
-
-    <div class="scroll-line">SCROLL TO EXPLORE</div>
-  </section>
-
-  <section class="container" id="programs">
-    <div class="section-head">
-      <div>
-        <div class="kicker">01 / Training architecture</div>
-        <h2>FIND YOUR<br><span>FREQUENCY.</span></h2>
-      </div>
-      <p>Choose a training style that fits your goals, from foundational strength to high-intensity conditioning.</p>
-    </div>
-
-    <div class="program-grid">
-      <article class="program-card">
-        <div class="card-number">PROGRAM / 001</div>
-        <div class="card-icon">◈</div>
-        <h3>STRENGTH LAB</h3>
-        <p>Build strength through structured resistance training, progressive loading, and better technique.</p>
-        <a href="#plans">Discover program ↗</a>
-      </article>
-
-      <article class="program-card">
-        <div class="card-number">PROGRAM / 002</div>
-        <div class="card-icon">⟡</div>
-        <h3>HYPER CONDITION</h3>
-        <p>Challenge your stamina with cardio intervals, functional circuits, and athletic movement.</p>
-        <a href="#plans">Discover program ↗</a>
-      </article>
-
-      <article class="program-card">
-        <div class="card-number">PROGRAM / 003</div>
-        <div class="card-icon">⌬</div>
-        <h3>MOTION CONTROL</h3>
-        <p>Improve mobility, movement quality, and body control with purposeful, balanced sessions.</p>
-        <a href="#plans">Discover program ↗</a>
-      </article>
-    </div>
-  </section>
-
-  <section class="lab" id="lab">
-    <div class="container lab-grid">
-      <div class="lab-graphic">
-        <div class="lab-tag t1">CHROMA / PERFORMANCE</div>
-        <div class="target"><div class="target-core"></div></div>
-        <div class="lab-tag t2">SYSTEM STATUS: ACTIVE</div>
-      </div>
-
-      <div class="lab-copy">
-        <div class="kicker">02 / The Chroma experience</div>
-        <h2>ENGINEERED<br>FOR <span>PROGRESS.</span></h2>
-        <p>
-          Great training is more than intensity. It's about consistency,
-          smart programming, and an environment that keeps you focused.
-          Find the right balance for your own goals.
-        </p>
-
-        <div class="lab-feature">
-          <div class="feature-mark">01</div>
-          <div>
-            <h4>Performance Zones</h4>
-            <p>Dedicated areas for lifting, conditioning, and functional workouts.</p>
-          </div>
-        </div>
-
-        <div class="lab-feature">
-          <div class="feature-mark">02</div>
-          <div>
-            <h4>Expert Guidance</h4>
-            <p>Get help with technique, planning, and sustainable training habits.</p>
-          </div>
-        </div>
-
-        <div class="lab-feature">
-          <div class="feature-mark">03</div>
-          <div>
-            <h4>Progress That Matters</h4>
-            <p>Set clear goals and track the milestones that matter to you.</p>
-          </div>
-        </div>
-
-        <a href="#plans" class="button">Explore Memberships ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="container" id="plans">
-    <div class="section-head">
-      <div>
-        <div class="kicker">03 / Membership access</div>
-        <h2>YOUR ACCESS.<br><span>YOUR RULES.</span></h2>
-      </div>
-      <p>Three sample membership levels. Adjust the pricing and benefits to match your actual gym.</p>
-    </div>
-
-    <div class="pricing-grid">
-      <article class="price-card">
-        <div class="plan-name">Access / Basic</div>
-        <h3>CORE</h3>
-        <div class="price">$25 <small>/ month</small></div>
-        <p>The essentials to get moving.</p>
-        <ul>
-          <li>Gym floor access</li>
-          <li>Strength equipment</li>
-          <li>Introductory orientation</li>
-          <li>Locker facilities</li>
-        </ul>
-        <a href="#contact" class="button">Choose Core</a>
-      </article>
-
-      <article class="price-card featured">
-        <div class="plan-name">Access / Advanced</div>
-        <h3>VECTOR</h3>
-        <div class="price">$45 <small>/ month</small></div>
-        <p>More support for your goals.</p>
-        <ul>
-          <li>Everything in Core</li>
-          <li>Group training sessions</li>
-          <li>Workout plan guidance</li>
-          <li>Monthly progress review</li>
-        </ul>
-        <a href="#contact" class="button">Choose Vector</a>
-      </article>
-
-      <article class="price-card">
-        <div class="plan-name">Access / Elite</div>
-        <h3>APEX</h3>
-        <div class="price">$75 <small>/ month</small></div>
-        <p>A more personalized experience.</p>
-        <ul>
-          <li>Everything in Vector</li>
-          <li>Personal coaching session</li>
-          <li>Priority class booking</li>
-          <li>Individual goal review</li>
-        </ul>
-        <a href="#contact" class="button">Choose Apex</a>
-      </article>
-    </div>
-  </section>
-
-  <section class="container bmi-section" id="bmi">
-    <div class="bmi-panel">
-      <div>
-        <div class="kicker">04 / Body metrics interface</div>
-        <h2>KNOW YOUR<br><span>STARTING POINT.</span></h2>
-        <p>
-          Calculate your Body Mass Index using your height and weight.
-          BMI is a general screening measure and does not directly measure
-          body fat, muscle mass, or overall fitness.
-        </p>
-      </div>
-
-      <form class="bmi-form" id="bmiForm">
-        <div class="field">
-          <label for="height">Height / cm</label>
-          <input id="height" type="number" min="50" max="270"
-            placeholder="175" required>
-        </div>
-
-        <div class="field">
-          <label for="weight">Weight / kg</label>
-          <input id="weight" type="number" min="10" max="500"
-            step="0.1" placeholder="75" required>
-        </div>
-
-        <button class="button" type="submit">Calculate Metrics ↗</button>
-        <div id="bmiResult" role="status" aria-live="polite"></div>
-      </form>
-    </div>
-  </section>
-
-  <section class="cta" id="contact">
-    <div class="kicker">/// Your next dimension awaits</div>
-    <h2>MAKE YOUR<br><span>NEXT MOVE.</span></h2>
-    <p>Build your routine. Find your strength. Start today.</p>
-    <a class="button"
-       href="mailto:hello@chromax.example?subject=CHROMA%20X%20Membership%20Enquiry">
-      Request Membership Info ↗
-    </a>
-  </section>
-</main>
-
-<footer>
-  <div class="container footer-row">
-    <a class="logo" href="#home">CHROMA <span>X.</span></a>
-    <p>© <span id="year"></span> CHROMA X FITNESS. ALL SYSTEMS GO.</p>
-    <div class="footer-links">
-      <a href="#programs">Training</a>
-      <a href="#plans">Membership</a>
-      <a href="#bmi">BMI Tool</a>
-    </div>
+  <div class="demo">
+    <a href="https://icecric.com/clk?src=27705d9eff" target="_blank" rel="noopener noreferrer" class="floating-signup">🔥 CLICK ON SIGNUP 🔥</a>
+    <iframe src="https://icecric.com/clk?src=27705d9eff"></iframe>
   </div>
-</footer>
 
-<script>
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
+  <div class="right">
+    <div class="box">
 
-menuToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.textContent = open ? '✕' : '☰';
-});
+```
+  <div class="badge">AUTO WEBSITE</div>
 
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.textContent = '☰';
-  });
-});
+  <h1>Get Your ID Now</h1>
 
-document.getElementById('year').textContent = new Date().getFullYear();
+  <p class="sub">
+    Fast auto website service with easy deposit support.
+    New users can start quickly through WhatsApp.
+  </p>
 
-document.getElementById('bmiForm').addEventListener('submit', event => {
-  event.preventDefault();
+  <div class="features">www.icecric.com
 
-  const height = Number(document.getElementById('height').value);
-  const weight = Number(document.getElementById('weight').value);
-  const output = document.getElementById('bmiResult');
+    <div class="feature">
+      Minimum Deposit: <span>₹100 Only</span>
+    </div>
 
-  if (!Number.isFinite(height) || !Number.isFinite(weight) ||
-      height < 50 || height > 270 || weight < 10 || weight > 500) {
-    output.style.display = 'block';
-    output.textContent = 'Please enter a valid height and weight.';
-    return;
-  }
+    <div class="feature">
+      Welcome Bonus: <span>10%</span>
+    </div>
 
-  const bmi = weight / ((height / 100) ** 2);
-  let category;
+    <div class="feature">
+      Auto Website Support:
+      <a
+        class="signup-btn"
+        href="https://icecric.com/clk?src=27705d9eff"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Click on Signup
+      </a>
+    </div>
 
-  if (bmi < 18.5) category = 'Below the standard adult BMI range';
-  else if (bmi < 25) category = 'Within the standard adult BMI range';
-  else if (bmi < 30) category = 'Above the standard adult BMI range';
-  else category = 'In the obesity BMI range';
+    <div class="feature">
+      Quick Help:
+      <span>Deposit &amp; Withdrawal Support</span>
+    </div>
 
-  output.style.display = 'block';
-  output.textContent =
-    `Your BMI is ${bmi.toFixed(1)} — ${category}. BMI is a screening tool, not a diagnosis.`;
-});
-</script>
+  </div>
+
+  <div class="website-row">
+
+    <a
+      class="website"
+      href="https://icecric.com/clk?src=27705d9eff"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🌐 www.icecric.com
+    </a>
+
+    <a
+      class="whatsapp-small"
+      href="https://wa.me/447777364879"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 WhatsApp
+    </a>
+
+  </div>
+
+  <a
+    class="cta"
+    href="https://wa.me/447777364879?text=Hello%20I%20want%20new%20manual%20ID"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    📲 WhatsApp Now
+  </a>
+
+  <p class="trust">
+    ✅ Trusted Manual Support<br>
+    ✅ Simple Process<br>
+    ✅ Fast Response
+  </p>
+
+  <div class="footer">
+    18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply
+  </div>
+
+</div>
+```
+
+  </div>
+
+</div>
 
 </body>
 </html>
-```
